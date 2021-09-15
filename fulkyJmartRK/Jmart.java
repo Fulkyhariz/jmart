@@ -1,6 +1,5 @@
 package fulkyJmartRK;
 
-
 /**
  * Write a description of class Jmart here.
  *
@@ -12,12 +11,31 @@ public class Jmart
     public static void main(String[] args)
     {
         System.out.println(getPromo());
+        System.out.println("");
         System.out.println(getCustomer());
+        System.out.println("");
         System.out.println(getDiscountPercentage(1000,900));
-        System.out.println(getOriginalPrice(900,10.0f));
+        System.out.println(getDiscountPercentage(1000,0));
+        System.out.println(getDiscountPercentage(0,0));
+        System.out.println(getDiscountPercentage(0,1));
+        System.out.println("");
         System.out.println(getDiscountedPrice(1000, 10.0f));
+        System.out.println(getDiscountedPrice(1000, 100.0f));
+        System.out.println(getDiscountedPrice(1000, 120.0f));
+        System.out.println(getDiscountedPrice(0, 0.0f));
+        System.out.println("");
+        System.out.println(getOriginalPrice(900,10.0f));
+        System.out.println(getOriginalPrice(1000,0.0f));
+        System.out.println(getOriginalPrice(0,100.0f));
+        System.out.println(getOriginalPrice(0,120.0f));
+        System.out.println("");
         System.out.println(getAdjustedPrice(1000));
+        System.out.println(getAdjustedPrice(500));
+        System.out.println(getAdjustedPrice(0));
+        System.out.println("");
         System.out.println(getAdminFee(1000));
+        System.out.println(getAdminFee(500));
+        System.out.println(getAdminFee(0));
     }
     public static int getPromo()
     {
@@ -31,10 +49,14 @@ public class Jmart
     }
     public static float getDiscountPercentage(int before, int after)
     {
-        if (before < after){
+        float temp = 0.0f;
+        if (((float) before) < ((float) after)){
             return 0.0f;
         }
-        return (int)((before - after)/before);
+        if (((float) before) != 0.0f){
+            temp = (((float)(before - after)/before)*100);
+        }
+        return temp;
     }
     public static int getDiscountedPrice(int price, float discountPercentage)
     {
