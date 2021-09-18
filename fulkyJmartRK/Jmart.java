@@ -10,32 +10,21 @@ public class Jmart
 {
     public static void main(String[] args)
     {
-        System.out.println(getPromo());
-        System.out.println("");
-        System.out.println(getCustomer());
-        System.out.println("");
-        System.out.println(getDiscountPercentage(1000,900));
-        System.out.println(getDiscountPercentage(1000,0));
-        System.out.println(getDiscountPercentage(0,0));
-        System.out.println(getDiscountPercentage(0,1));
-        System.out.println("");
-        System.out.println(getDiscountedPrice(1000, 10.0f));
-        System.out.println(getDiscountedPrice(1000, 100.0f));
-        System.out.println(getDiscountedPrice(1000, 120.0f));
-        System.out.println(getDiscountedPrice(0, 0.0f));
-        System.out.println("");
-        System.out.println(getOriginalPrice(900,10.0f));
-        System.out.println(getOriginalPrice(1000,0.0f));
-        System.out.println(getOriginalPrice(0,100.0f));
-        System.out.println(getOriginalPrice(0,120.0f));
-        System.out.println("");
-        System.out.println(getAdjustedPrice(1000));
-        System.out.println(getAdjustedPrice(500));
-        System.out.println(getAdjustedPrice(0));
-        System.out.println("");
-        System.out.println(getAdminFee(1000));
-        System.out.println(getAdminFee(500));
-        System.out.println(getAdminFee(0));
+        /*this.idCounter += 1;
+        this.id = idCounter;
+        this.name = name;
+        this.weight = weight;
+        this.conditionUsed = conditionUsed;
+        this.priceTag = priceTag;
+        this.category = category;
+        this.rating = rating;*/
+        System.out.println(create().id);
+        System.out.println(create().name);
+        System.out.println(create().weight);
+        System.out.println(create().conditionUsed);
+        System.out.println(create().priceTag.price);
+        System.out.println(create().category);
+        System.out.println(create().rating);
     }
     public static int getPromo()
     {
@@ -84,5 +73,9 @@ public class Jmart
     {
         // put your code here
         return (int)(getCommissionMultiplier()*price);
+    }
+    public static Product create(){
+        Product produk = new Product("lock&lock", 50, false, new PriceTag(100000), ProductCategory.SPORTS);
+        return produk;
     }
 }
