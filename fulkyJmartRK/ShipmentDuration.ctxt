@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.target=ShipmentDuration
+comment1.params=bit
+comment1.target=ShipmentDuration(int)
+comment2.params=reference
+comment2.target=boolean\ isDuration(ShipmentDuration)
+comment2.text=public\ ShipmentDuration(ShipmentDuration...\ args){\r\n\ \ \ \ \ \ \ \ //this.bit\ \=\ bit\ |\ args.bit;\ \ \ \r\n}
+numComments=3

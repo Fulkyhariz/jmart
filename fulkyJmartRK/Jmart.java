@@ -10,21 +10,11 @@ public class Jmart
 {
     public static void main(String[] args)
     {
-        /*this.idCounter += 1;
-        this.id = idCounter;
-        this.name = name;
-        this.weight = weight;
-        this.conditionUsed = conditionUsed;
-        this.priceTag = priceTag;
-        this.category = category;
-        this.rating = rating;*/
-        System.out.println(create().id);
-        System.out.println(create().name);
-        System.out.println(create().weight);
-        System.out.println(create().conditionUsed);
-        System.out.println(create().priceTag.price);
-        System.out.println(create().category);
-        System.out.println(create().rating);
+        /*System.out.println(createCoupon().name);
+        System.out.println(createCoupon().code);
+        System.out.println(createCoupon().cut);
+        System.out.println(createCoupon().type);
+        System.out.println(createCoupon().minimum);*/
     }
     public static int getPromo()
     {
@@ -78,4 +68,16 @@ public class Jmart
         Product produk = new Product("lock&lock", 50, false, new PriceTag(100000), ProductCategory.SPORTS);
         return produk;
     }
+    public static Product createProduct(){
+        Product produk = new Product("lock&lock", 50, false, new PriceTag(100000), ProductCategory.SPORTS);
+        return produk;
+    }
+    public static Coupon createCoupon(){
+        Coupon kupon = new Coupon("Diskon", 21, Coupon.Type.DISCOUNT, 20000.0, 10000.0);
+        return kupon;
+    }
+    public static ShipmentDuration createShipmentDuration(){
+        return null;
+    }
+    
 }

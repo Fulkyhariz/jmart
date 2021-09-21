@@ -8,7 +8,7 @@ package fulkyJmartRK;
  */
 public class Product
 {
-    public int idCounter;
+    public static int idCounter;
     public int id;
     public String name;
     public int weight;
