@@ -13,9 +13,13 @@ public class ShipmentDuration
     private ShipmentDuration(int bit){
         this.bit = bit;
     }
-    /*public ShipmentDuration(ShipmentDuration... args){
-        //this.bit = bit | args.bit;   
-    }*/
+    public ShipmentDuration(ShipmentDuration... args){
+        int flags = 0;
+        for (ShipmentDuration arg : args){
+            flags |= arg.bit;
+        }
+        bit = flags;
+    }
     public boolean isDuration(ShipmentDuration reference){
         if((this.bit & reference.bit) == 0){
             return false;

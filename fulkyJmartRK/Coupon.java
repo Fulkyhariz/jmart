@@ -1,8 +1,8 @@
 package fulkyJmartRK;
 
-public class Coupon
+public class Coupon extends Recognizable implements FileParser
 {
-    enum Type {
+    public enum Type {
         DISCOUNT, REBATE
     }
     public final String name;
@@ -15,13 +15,16 @@ public class Coupon
     /**
      * Constructor for objects of class Coupon
      */
-    public Coupon(String name, int code, Type type, double cut, double minimum)
+    public Coupon(int id, String name, int code, Type type, 
+    double cut, double minimum)
     {
+        super(id);
         this.name = name;
         this.code = code;
         this.cut = cut;
         this.type = type;
         this.minimum = minimum;
+        this.used = false;
     }
     public boolean isUsed(){
         return used;
@@ -32,11 +35,15 @@ public class Coupon
         }
         return false;
     }
-    public double Apply (PriceTag priceTag){
+    public double apply (PriceTag priceTag){
         this.used = true;
         if (type == Type.DISCOUNT){
             return (priceTag.getAdjustedPrice() * (100 - this.cut)/100);
         }
         return (priceTag.getAdjustedPrice() - this.cut);
+    }
+    @Override
+    public boolean read(String content){
+        return false;
     }
 }
