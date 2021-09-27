@@ -64,7 +64,7 @@ public class Jmart
         // put your code here
         return (int)(getCommissionMultiplier()*price);
     }
-    public static Product create(){
+    /*public static Product create(){
         Product produk = new Product("lock&lock", 50, false, new PriceTag(100000), ProductCategory.SPORTS);
         return produk;
     }
@@ -76,8 +76,8 @@ public class Jmart
         Coupon kupon = new Coupon("Diskon", 21, Coupon.Type.DISCOUNT, 20000.0, 10000.0);
         return kupon;
     }
-    public static ShipmentDuration createShipmentDuration(){
+    public static Shipment.Duration createShipmentDuration(){
         return null;
-    }
+    }*/
     
 }

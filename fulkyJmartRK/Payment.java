@@ -1,27 +1,26 @@
-/* package fulkyJmartRK;
+package fulkyJmartRK;
 
-public class Payment extends Transaction implements FileParser
+public class Payment extends Invoice implements Transactor
 {
-    public int productId;
-    public ShipmentDuration shipmentDuration;
+    public Shipment shipment;
+    public int productCount;
     
-    public Payment(int id, int buyerId, Product product, ShipmentDuration shipmentDuration){
-        super(id);
-        this.shipmentDuration = shipmentDuration;
+    public Payment(int id, int buyerId, int productId, int productCount,
+    Shipment shipment){
+        super(id, buyerId, productId);
+        this.productCount = productCount;
+        this.shipment = shipment;
     }
-    public Payment(int id, int buyerId, int storeId, int productId, ShipmentDuration shipmentDuration){
-        super(id);
-        this.productId = productId;
-        this.shipmentDuration = shipmentDuration;
-    }
-        public boolean validate(){
+    @Override
+    public boolean validate(){
         return false;
     }
-    public Transaction perform(){
+    @Override
+    public Invoice perform(){
         return null;
     }
     @Override
-    public boolean read(String content){
-        return false;
+    public double getTotalPay(){
+        return 0.0;
     }
-}*/
+}

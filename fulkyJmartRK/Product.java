@@ -17,8 +17,10 @@ public class Product extends Recognizable implements FileParser
     public ProductCategory category;
     public ProductRating rating;
     public int storeId;
+    public Shipment.MultiDuration multiDuration;
     public Product(int id, int storeId, String name, int weight,
-    boolean conditionUsed, PriceTag priceTag, ProductCategory category)
+    boolean conditionUsed, PriceTag priceTag, ProductCategory category,
+    Shipment.MultiDuration multiDuration)
     {
         super(id);
         this.id = idCounter;
@@ -30,23 +32,19 @@ public class Product extends Recognizable implements FileParser
         this.category = category;
         this.rating = rating;
         this.storeId = storeId;
-    }
-    public Product(int id, Store store, String name, int weight,
-    boolean conditionUsed, PriceTag priceTag, ProductCategory category)
-    {
-        super(store.id);
-        this.id = idCounter;
-        this.idCounter++;
-        this.name = name;
-        this.weight = weight;
-        this.conditionUsed = conditionUsed;
-        this.priceTag = priceTag;
-        this.category = category;
-        this.rating = rating;
-        this.storeId = storeId;
+        this.multiDuration = multiDuration;
     }
     @Override
     public boolean read(String content){
         return false;
+    }
+    public String toString(){
+        return "Name: "+this.name +" \n"+
+        "Weight: "+this.weight+" \n"+
+        "conditionUsed: "+this.conditionUsed+" \n"+
+        "priceTag: "+this.priceTag+" \n"+
+        "category: "+this.category+" \n"+
+        "rating: "+this.rating+" \n"+
+        "storeId: "+this.storeId+" \n";
     }
 }
