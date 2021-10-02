@@ -1,4 +1,7 @@
 package fulkyJmartRK;
+import java.util.Date;
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
 
 public class Shipment implements FileParser
 {
@@ -10,9 +13,26 @@ public class Shipment implements FileParser
         public static Duration KARGO = new Duration((byte)(1<<4));
 
         public final byte bit;
+        
+        public static final SimpleDateFormat ESTIMATION_FORMAT = 
+        new SimpleDateFormat("E MMMM dd yyyy");
 
         private Duration(byte bit){
             this.bit = bit;
+        }
+        public String getEstimatedArrival(Date reference){
+            Calendar waktu = Calendar.getInstance();
+            waktu.setTime(reference);
+            if  (this.bit == Duration.INSTANT.bit || 
+            this.bit == Duration.SAME_DAY.bit){
+                waktu.setTime(reference);
+            }else if (this.bit == Duration.NEXT_DAY.bit){
+                waktu.add(Calendar.DATE, 1);
+            }else if (this.bit == Duration.REGULER.bit){
+                waktu.add(Calendar.DATE, 2);
+            }else if (this.bit == Duration.KARGO.bit){
+                waktu.add(Calendar.DATE, 5);
+            }return ESTIMATION_FORMAT.format(waktu.getTime());
         }
     }
     public static class MultiDuration{

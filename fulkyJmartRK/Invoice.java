@@ -1,4 +1,6 @@
 package fulkyJmartRK;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 public abstract class Invoice extends Recognizable implements FileParser
 {
@@ -9,7 +11,7 @@ public abstract class Invoice extends Recognizable implements FileParser
         WAITING_CONFIRMATION, CANCELLED, ON_PROGRESS, ON_DELIVERY, COMPLAINT,
         FINISHED, FAILED
     }
-    public String date;
+    public Date date;
     public int buyerId;
     public int productId;
     public int complaintId;
@@ -20,7 +22,7 @@ public abstract class Invoice extends Recognizable implements FileParser
         super(id);
         this.buyerId = buyerId;
         this.productId = productId;
-        this.date = "february";
+        this.date = new Date();
         this.rating = Rating.NONE;
         this.status = Status.WAITING_CONFIRMATION;
     }

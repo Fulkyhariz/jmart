@@ -10,11 +10,7 @@ public class Jmart
 {
     public static void main(String[] args)
     {
-        /*System.out.println(createCoupon().name);
-        System.out.println(createCoupon().code);
-        System.out.println(createCoupon().cut);
-        System.out.println(createCoupon().type);
-        System.out.println(createCoupon().minimum);*/
+        
     }
     public static int getPromo()
     {

@@ -1,7 +1,11 @@
 package fulkyJmartRK;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Store extends Recognizable implements FileParser
 {
+    public static final String REGEX_PHONE = "^\\d{9,12}$";
+    public static final String REGEX_NAME = "^[A-Z](?!.*(\\s)\1).{4,20}$";
     public String name;
     public String address;
     public String phoneNumber;
@@ -21,9 +25,16 @@ public class Store extends Recognizable implements FileParser
         this.address = address;
         this.phoneNumber = phoneNumber;
     }
-        public String toString(){
+    public String toString(){
         return "name: "+this.name +" \n"+
         "address: "+this.address+" \n"+
         "phoneNumber: "+this.phoneNumber+" \n";
+    }
+    public boolean validate(){
+        Pattern name = Pattern.compile(REGEX_NAME);
+        Matcher match1 = name.matcher(this.name);
+        Pattern phone = Pattern.compile(REGEX_PHONE);
+        Matcher match2 = phone.matcher(this.phoneNumber);
+        return match1.find() && match2.find();
     }
 }
