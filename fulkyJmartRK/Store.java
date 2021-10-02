@@ -31,8 +31,8 @@ public class Store extends Recognizable implements FileParser
         "phoneNumber: "+this.phoneNumber+" \n";
     }
     public boolean validate(){
-        Pattern name = Pattern.compile(REGEX_NAME);
-        Matcher match1 = name.matcher(this.name);
+        Pattern nama = Pattern.compile(REGEX_NAME);
+        Matcher match1 = nama.matcher(this.name);
         Pattern phone = Pattern.compile(REGEX_PHONE);
         Matcher match2 = phone.matcher(this.phoneNumber);
         return match1.find() && match2.find();
