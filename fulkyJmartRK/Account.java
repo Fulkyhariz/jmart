@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 public class Account extends Recognizable implements FileParser
 {
     public static final String REGEX_EMAIL = "^[a-zA-Z0-9&*_~]+([\\.]?[a-zA-Z0-9&*_~]?)*@[A-Za-z0-9]+([-]?[\\.]?[A-Za-z0-9]+)+(^\\.)$";
-    public static final String REGEX_PASSWORD = "^([A-Z]+[a-z]+[0-9]+){8,}$";
+    public static final String REGEX_PASSWORD = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$";
     public String name;
     public String email;
     public String password;

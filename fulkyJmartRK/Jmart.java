@@ -11,13 +11,8 @@ public class Jmart
 {
     public static void main(String[] args)
     {
-        Store tes1 = new Store(1, "Fulkyhariz", "JL perintis Kemerdekaan", "0266531129");
+        Account tes1 = new Account(1, "Fulky", "Fulkyhariz@gmail.com", "FhzFulky123");
         System.out.println(tes1.validate());
-        Store tes2 = new Store(1, "fulky  hariz", "JL perintis Kemerdekaan", "0266531129");
-        System.out.println(tes2.validate());
-        Store tes3 = new Store(1, "Fulkyhariz", "JL perintis Kemerdekaan", "0266531888888129");
-        System.out.println(tes3.validate());
-        System.out.println(Shipment.Duration.INSTANT.getEstimatedArrival(new Date()));
     }
     public static int getPromo()
     {
