@@ -1,4 +1,5 @@
 package fulkyJmartRK;
+import java.util.Date;
 
 /**
  * Write a description of class Jmart here.
@@ -15,7 +16,8 @@ public class Jmart
         Store tes2 = new Store(1, "fulky  hariz", "JL perintis Kemerdekaan", "0266531129");
         System.out.println(tes2.validate());
         Store tes3 = new Store(1, "Fulkyhariz", "JL perintis Kemerdekaan", "0266531888888129");
-        System.out.println(tes3.validate());      
+        System.out.println(tes3.validate());
+        System.out.println(Shipment.Duration.INSTANT.getEstimatedArrival(new Date()));
     }
     public static int getPromo()
     {

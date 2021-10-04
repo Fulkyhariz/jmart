@@ -1,6 +1,7 @@
 package fulkyJmartRK;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 public abstract class Invoice extends Recognizable implements FileParser
 {
@@ -11,12 +12,18 @@ public abstract class Invoice extends Recognizable implements FileParser
         WAITING_CONFIRMATION, CANCELLED, ON_PROGRESS, ON_DELIVERY, COMPLAINT,
         FINISHED, FAILED
     }
+    public class Record{
+        public Status status;
+        public Date date;
+        public String message;
+    }
     public Date date;
     public int buyerId;
     public int productId;
     public int complaintId;
     public Rating rating;
     public Status status;
+    public ArrayList<Record> history;
     
     protected Invoice(int id,int buyerId,int productId){
         super(id);

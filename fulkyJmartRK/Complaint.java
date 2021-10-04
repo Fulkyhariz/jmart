@@ -1,5 +1,6 @@
 package fulkyJmartRK;
 import java.util.Date;
+import java.util.Calendar;
 import java.text.SimpleDateFormat;
 
 public class Complaint extends Recognizable implements FileParser
@@ -15,5 +16,11 @@ public class Complaint extends Recognizable implements FileParser
     @Override
     public boolean read(String content){
         return false;
+    }
+    public String toString(){
+        Calendar waktu = Calendar.getInstance();
+        waktu.setTime(this.date);
+        SimpleDateFormat formatWaktu = new SimpleDateFormat("dd/MM/yyyy");
+        return "date="+ formatWaktu.format(waktu.getTime()) +", desc="+ this.desc;
     }
 }
