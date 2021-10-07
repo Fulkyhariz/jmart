@@ -11,8 +11,7 @@ public class Jmart
 {
     public static void main(String[] args)
     {
-        Account tes1 = new Account(1, "Fulky", "Fulkyhariz@gmail.com", "FhzFulky123");
-        System.out.println(tes1.validate());
+        System.out.println("Hello World");
     }
     public static int getPromo()
     {
