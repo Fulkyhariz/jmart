@@ -13,14 +13,14 @@ public class Complaint extends Recognizable implements FileParser
         this.desc = desc;
         this.date = new Date();
     }
-    @Override
-    public boolean read(String content){
-        return false;
-    }
     public String toString(){
         Calendar waktu = Calendar.getInstance();
         waktu.setTime(this.date);
         SimpleDateFormat formatWaktu = new SimpleDateFormat("dd/MM/yyyy");
         return "date="+ formatWaktu.format(waktu.getTime()) +", desc="+ this.desc;
+    }
+    @Override
+    public boolean read(String content){
+        return false;
     }
 }

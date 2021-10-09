@@ -23,7 +23,7 @@ public abstract class Invoice extends Recognizable implements FileParser
     public int complaintId;
     public Rating rating;
     public Status status;
-    public ArrayList<Record> history;
+    public ArrayList<Record> history = new ArrayList<Record>();
     
     protected Invoice(int id,int buyerId,int productId){
         super(id);
