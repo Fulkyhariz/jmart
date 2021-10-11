@@ -31,6 +31,11 @@ public class Recognizable implements Comparable <Recognizable>
             return false;
         }
     }
+
+    @Override
+    public int compareTo(Recognizable o) {
+        return 0;
+    }
 //    @Override
 //    public int compareTo(Recognizable other) {
 //        if(this.id == other.id) {

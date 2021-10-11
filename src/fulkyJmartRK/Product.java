@@ -17,10 +17,9 @@ public class Product extends Recognizable
     public ProductCategory category;
     public ProductRating rating;
     public int storeId;
-    public Shipment.MultiDuration multiDuration;
+    //public Shipment.MultiDuration multiDuration;
     public Product(int id, int storeId, String name, int weight,
-    boolean conditionUsed, PriceTag priceTag, ProductCategory category,
-    Shipment.MultiDuration multiDuration)
+    boolean conditionUsed, PriceTag priceTag, ProductCategory category)
     {
         this.id = idCounter;
         this.idCounter++;
@@ -31,7 +30,7 @@ public class Product extends Recognizable
         this.category = category;
         this.rating = rating;
         this.storeId = storeId;
-        this.multiDuration = multiDuration;
+        //this.multiDuration = multiDuration;
     }
 //    @Override
 //    public boolean read(String content){
