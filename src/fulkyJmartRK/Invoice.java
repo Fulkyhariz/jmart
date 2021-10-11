@@ -3,7 +3,7 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public abstract class Invoice extends Recognizable implements FileParser
+public abstract class Invoice extends Recognizable
 {
     public enum Rating{
         NONE, BAD, NEUTRAL, GOOD
@@ -25,17 +25,16 @@ public abstract class Invoice extends Recognizable implements FileParser
     public Status status;
     public ArrayList<Record> history = new ArrayList<Record>();
     
-    protected Invoice(int id,int buyerId,int productId){
-        super(id);
+    protected Invoice(int buyerId,int productId){
         this.buyerId = buyerId;
         this.productId = productId;
         this.date = new Date();
         this.rating = Rating.NONE;
         this.status = Status.WAITING_CONFIRMATION;
     }
-    @Override
-    public boolean read(String content){
-        return false;
-    }
-    public abstract double getTotalPay();
+//    @Override
+//    public boolean read(String content){
+//        return false;
+//    }
+//    public abstract double getTotalPay();
 }

@@ -3,13 +3,12 @@ import java.util.Date;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
 
-public class Complaint extends Recognizable implements FileParser
+public class Complaint extends Recognizable
 {
     public Date date;
     public String desc;
     
     public Complaint(int id, String desc){
-        super(id);
         this.desc = desc;
         this.date = new Date();
     }
@@ -19,8 +18,8 @@ public class Complaint extends Recognizable implements FileParser
         SimpleDateFormat formatWaktu = new SimpleDateFormat("dd/MM/yyyy");
         return "date="+ formatWaktu.format(waktu.getTime()) +", desc="+ this.desc;
     }
-    @Override
-    public boolean read(String content){
-        return false;
-    }
+//    @Override
+//    public boolean read(String content){
+//        return false;
+//    }
 }

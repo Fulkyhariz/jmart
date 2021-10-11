@@ -6,7 +6,7 @@ package fulkyJmartRK;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Product extends Recognizable implements FileParser
+public class Product extends Recognizable
 {
     public static int idCounter = 0;
     public int id;
@@ -22,7 +22,6 @@ public class Product extends Recognizable implements FileParser
     boolean conditionUsed, PriceTag priceTag, ProductCategory category,
     Shipment.MultiDuration multiDuration)
     {
-        super(id);
         this.id = idCounter;
         this.idCounter++;
         this.name = name;
@@ -34,10 +33,10 @@ public class Product extends Recognizable implements FileParser
         this.storeId = storeId;
         this.multiDuration = multiDuration;
     }
-    @Override
-    public boolean read(String content){
-        return false;
-    }
+//    @Override
+//    public boolean read(String content){
+//        return false;
+//    }
     public String toString(){
         return "Name: "+this.name +" \n"+
         "Weight: "+this.weight+" \n"+

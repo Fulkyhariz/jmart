@@ -1,9 +1,51 @@
 package fulkyJmartRK;
 
-import java.util.Iterator;
+import java.util.*;
 
 public class Algorithm {
     private Algorithm(){}
+    public static <T> List<T> collect(T[]array, T value){
+        List<T> tempList = new ArrayList<T>();
+        for(T arrayValue : array){
+            if(arrayValue.equals(value)) tempList.add(arrayValue);
+        }
+        return tempList;
+    }
+    public static <T> List<T> collect(Iterable<T> iterable, T value){
+        List<T> tempList = new ArrayList<T>();
+        for(T t : iterable){
+            if(t.equals(value)) tempList.add(t);
+        }
+        return tempList;
+    }
+    public static <T> List<T> collect(Iterator<T> iterator, T value){
+        List<T> tempList = new ArrayList<T>();
+        while(iterator.hasNext()){
+            if(iterator.next().equals(value)) tempList.add(iterator.next());
+        }
+        return tempList;
+    }
+    public static <T> List<T> collect(T[]array, Predicate<T>pred){
+        List<T> tempList = new ArrayList<T>();
+        for(T arrayValue : array){
+            if(pred.predicate(arrayValue)) tempList.add(arrayValue);
+        }
+        return tempList;
+    }
+    public static <T> List<T> collect(Iterable<T> iterable, Predicate<T>pred){
+        List<T> tempList = new ArrayList<T>();
+        for(T t : iterable){
+            if(pred.predicate(t)) tempList.add(t);
+        }
+        return tempList;
+    }
+    public static <T> List<T> collect(Iterator<T> iterator, Predicate<T>pred){
+        List<T> tempList = new ArrayList<T>();
+        while(iterator.hasNext()){
+            if(pred.predicate(iterator.next())) tempList.add(iterator.next());
+        }
+        return tempList;
+    }
     public static <T> int count(T[]array, T value){
         int counter = 0;
         for(T arrayValue : array){
@@ -158,12 +200,45 @@ public class Algorithm {
         }
         return null;
     }
-    public static<T extends Comparable<? super T>> T max(T first, T second) {
+    public static <T extends Comparable<? super T>> T max(T first, T second) {
         if(first.compareTo(second) > 0) return first;
         return second;
     }
-
-    public static<T extends Comparable<? super T>> T min(T first, T second) {
+    public static <T extends Comparable<? super T>> T max(T[] array) {
+        List<T> tempList = Arrays.asList(array);
+        return Collections.max(tempList);
+    }
+    public static <T extends Comparable<? super T>> T max(Iterable<T> iterable) {
+        List<T> tempList = new ArrayList<T>();
+        iterable.forEach(tempList::add);
+        return Collections.max(tempList);
+    }
+    public static <T extends Comparable<? super T>> T max(Iterator<T> iterator) {
+        List<T> tempList = new ArrayList<T>();
+        iterator.forEachRemaining(tempList::add);
+        return Collections.max(tempList);
+    }
+    public static <T extends Comparator<? super T>> T max(T first, T second, Comparator<? super T> comparator) {
+        List<T> tempList = new ArrayList<T>();
+        tempList.add(first);
+        tempList.add(second);
+        return Collections.max(tempList, comparator);
+    }
+    public static <T extends Comparator<? super T>> T max(T[] array, Comparator<? super T> comparator) {
+        List<T> tempList = Arrays.asList(array);
+        return Collections.max(tempList, comparator);
+    }
+    public static <T extends Comparator<? super T>> T max(Iterable<T> iterable, Comparator<? super T> comparator) {
+        List<T> tempList = new ArrayList<T>();
+        iterable.forEach(tempList::add);
+        return Collections.max(tempList, comparator);
+    }
+    public static <T extends Comparator<? super T>> T max(Iterator<T> iterator, Comparator<? super T> comparator) {
+        List<T> tempList = new ArrayList<T>();
+        iterator.forEachRemaining(tempList::add);
+        return Collections.max(tempList, comparator);
+    }
+    public static <T extends Comparable<? super T>> T min(T first, T second) {
         if(first.compareTo(second) < 0) return first;
         return second;
     }

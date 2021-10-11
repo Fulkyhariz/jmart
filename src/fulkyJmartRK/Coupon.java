@@ -1,6 +1,6 @@
 package fulkyJmartRK;
 
-public class Coupon extends Recognizable implements FileParser
+public class Coupon extends Recognizable
 {
     public enum Type {
         DISCOUNT, REBATE
@@ -18,7 +18,6 @@ public class Coupon extends Recognizable implements FileParser
     public Coupon(int id, String name, int code, Type type, 
     double cut, double minimum)
     {
-        super(id);
         this.name = name;
         this.code = code;
         this.cut = cut;
@@ -42,8 +41,8 @@ public class Coupon extends Recognizable implements FileParser
         }
         return (priceTag.getAdjustedPrice() - this.cut);
     }
-    @Override
-    public boolean read(String content){
-        return false;
-    }
+//    @Override
+//    public boolean read(String content){
+//        return false;
+//    }
 }
