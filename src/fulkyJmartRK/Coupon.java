@@ -12,10 +12,7 @@ public class Coupon extends Recognizable
     public final double minimum;
     private boolean used;
 
-    /**
-     * Constructor for objects of class Coupon
-     */
-    public Coupon(int id, String name, int code, Type type, 
+    public Coupon(String name, int code, Type type,
     double cut, double minimum)
     {
         this.name = name;
@@ -28,21 +25,17 @@ public class Coupon extends Recognizable
     public boolean isUsed(){
         return used;
     }
-    public boolean canApply(PriceTag priceTag){
-        if (priceTag.getAdjustedPrice() >= this.minimum && this.used == false){
+    public boolean canApply(Treasury priceTag){
+        if (priceTag.getAdjustedPrice(0,0) >= this.minimum && !this.used){
             return true;
         }
         return false;
     }
-    public double apply (PriceTag priceTag){
+    public double apply (Treasury priceTag){
         this.used = true;
         if (type == Type.DISCOUNT){
-            return (priceTag.getAdjustedPrice() * (100 - this.cut)/100);
+            return (priceTag.getAdjustedPrice(0,0) * (100 - this.cut)/100);
         }
-        return (priceTag.getAdjustedPrice() - this.cut);
+        return (priceTag.getAdjustedPrice(0,0) - this.cut);
     }
-//    @Override
-//    public boolean read(String content){
-//        return false;
-//    }
 }

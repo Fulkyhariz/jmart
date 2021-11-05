@@ -32,9 +32,10 @@ public abstract class Invoice extends Recognizable
         this.rating = Rating.NONE;
         this.status = Status.WAITING_CONFIRMATION;
     }
-//    @Override
-//    public boolean read(String content){
-//        return false;
-//    }
-//    public abstract double getTotalPay();
+    /*
+    @Override
+    public boolean read(String content){
+        return false;
+    }*/
+    public abstract double getTotalPay();
 }

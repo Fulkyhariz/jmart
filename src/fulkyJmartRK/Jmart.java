@@ -1,5 +1,10 @@
 package fulkyJmartRK;
 import java.util.Date;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.List;
+import com.google.gson.*;
 
 /**
  * Write a description of class Jmart here.
@@ -9,72 +14,24 @@ import java.util.Date;
  */
 public class Jmart
 {
+    class Country{
+        public String name;
+        public int population;
+        public List<String> listOfStates;
+    }
     public static void main(String[] args)
     {
-        System.out.println("Hello World");
-    }
-    public static int getPromo()
-    {
-        // put your code here
-        return 0;
-    }
-    public static String getCustomer()
-    {
-        // put your code here
-        return "oop";
-    }
-    public static float getDiscountPercentage(int before, int after)
-    {
-        float temp = 0.0f;
-        if (((float) before) < ((float) after)){
-            return 0.0f;
+        String filepath = "C:/Users/fulky/Documents/Akademik/5th Term/OOP/Prak/Jmart/jmart/city.json";
+        Gson gson = new Gson();
+        try{
+            BufferedReader br = new BufferedReader((new FileReader(filepath)));
+            Country input = gson.fromJson(br, Country.class);
+            System.out.println("name: " + input.name);
+            System.out.println("population: " + input.population);
+            System.out.println("states: ");
+            input.listOfStates.forEach(state -> System.out.println(state));
+        }catch (IOException e){
+            e.printStackTrace();
         }
-        if (((float) before) != 0.0f){
-            temp = (((float)(before - after)/before)*100);
-        }
-        return temp;
     }
-    public static int getDiscountedPrice(int price, float discountPercentage)
-    {
-        if (discountPercentage > 100){
-            return 0;
-        }
-        return (int)(price - ((discountPercentage/100)*price));
-    }
-    public static int getOriginalPrice(int discountedPrice, float discountPercentage)
-    {
-        
-        return (int)(discountedPrice/(1-(discountPercentage/100)));
-    }
-    public static float getCommissionMultiplier()
-    {
-        // put your code here
-        return 0.05f;
-    }
-    public static int getAdjustedPrice(int price)
-    {
-        // put your code here
-        return (int)(price + (getCommissionMultiplier() * price));
-    }
-    public static int getAdminFee(int price)
-    {
-        // put your code here
-        return (int)(getCommissionMultiplier()*price);
-    }
-    /*public static Product create(){
-        Product produk = new Product("lock&lock", 50, false, new PriceTag(100000), ProductCategory.SPORTS);
-        return produk;
-    }
-    public static Product createProduct(){
-        Product produk = new Product("lock&lock", 50, false, new PriceTag(100000), ProductCategory.SPORTS);
-        return produk;
-    }
-    public static Coupon createCoupon(){
-        Coupon kupon = new Coupon("Diskon", 21, Coupon.Type.DISCOUNT, 20000.0, 10000.0);
-        return kupon;
-    }
-    public static Shipment.Duration createShipmentDuration(){
-        return null;
-    }*/
-    
 }

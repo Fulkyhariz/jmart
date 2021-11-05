@@ -11,16 +11,20 @@ public class Payment extends Invoice
         this.productCount = productCount;
         this.shipment = shipment;
     }
-//    @Override
-//    public boolean validate(){
-//        return false;
-//    }
-//    @Override
-//    public Invoice perform(){
-//        return null;
-//    }
-//    @Override
-//    public double getTotalPay(){
-//        return 0.0;
-//    }
+/*
+    @Override
+    public boolean validate(){
+        return false;
+    }
+    @Override
+    public Invoice perform(){
+        return null;
+    }
+
+ */
+    @Override
+    public double getTotalPay(){
+        return 0.0;
+    }
+
 }
