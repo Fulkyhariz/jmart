@@ -2,23 +2,25 @@ package fulkyJmartRK;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Account extends Recognizable
+public class Account extends Serializable
 {
     public static final String REGEX_EMAIL = "^[a-zA-Z0-9&*_~]+([\\.]?[a-zA-Z0-9&*_~]?)*@[A-Za-z0-9]+([-]?[\\.]?[A-Za-z0-9]+)+(^\\.)$";
     public static final String REGEX_PASSWORD = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$";
     public String name;
     public String email;
     public String password;
+    public double balance;
     Store store;
     
 //    @Override
 //    public boolean read(String content){
 //        return false;
 //    }
-    Account(int id, String name, String email, String password){
+    Account(String name, String email, String password, double balance){
         this.name = name;
         this.email = email;
         this.password = password;
+        this.balance = balance;
     }
     public String toString(){
         return "name: "+this.name +" \n"+

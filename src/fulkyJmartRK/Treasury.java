@@ -6,15 +6,15 @@ public class Treasury
     public static final double BOTTOM_PRICE = 20000.0;
     public static final double BOTTOM_FEE = 1000.0;
 
-    public double getAdjustedPrice(double price, double discount){
+    public static double getAdjustedPrice(double price, double discount){
         return getDiscountedPrice(price, discount) + getAdminFee(price, discount);
     }
-    public double getAdminFee(double price, double discount){
+    public static double getAdminFee(double price, double discount){
         if (getDiscountedPrice(price, discount) < BOTTOM_PRICE){
             return BOTTOM_FEE;
         } return getDiscountedPrice(price, discount) - (getDiscountedPrice(price, discount)*COMMISSION_MULTIPLIER);
     }
-    private double getDiscountedPrice(double price, double discount){
+    private static double getDiscountedPrice(double price, double discount){
         if (discount > 100.0){
             return 0.0;
         } else if(discount == 100.0){

@@ -3,7 +3,7 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public abstract class Invoice extends Recognizable
+public abstract class Invoice extends Serializable
 {
     public enum Rating{
         NONE, BAD, NEUTRAL, GOOD
@@ -17,7 +17,7 @@ public abstract class Invoice extends Recognizable
         public Date date;
         public String message;
     }
-    public Date date;
+    public final Date date;
     public int buyerId;
     public int productId;
     public int complaintId;
@@ -32,10 +32,5 @@ public abstract class Invoice extends Recognizable
         this.rating = Rating.NONE;
         this.status = Status.WAITING_CONFIRMATION;
     }
-    /*
-    @Override
-    public boolean read(String content){
-        return false;
-    }*/
     public abstract double getTotalPay();
 }
