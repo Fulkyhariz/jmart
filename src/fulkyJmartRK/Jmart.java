@@ -50,9 +50,16 @@ public class Jmart
         List<Product> temp = new ArrayList<>();
         try{
             JsonReader jsonReader = new JsonReader((new FileReader(filepath)));
-            return gson.fromJson(jsonReader, temp);
+            temp = gson.fromJson(jsonReader, Product.class);
         }catch (FileNotFoundException e){
             e.printStackTrace();
         }
+        return temp;
+    }
+    public static List<Product> filterByCategory (List<Product> list, ProductCategory category){
+        return null;
+    }
+    public static List<Product> filterByPrice (List<Product> list, double minPrice, double maxPrice){
+        return null;
     }
 }
