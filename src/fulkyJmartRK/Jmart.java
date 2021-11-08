@@ -74,22 +74,10 @@ public class Jmart
         return filtered;
     }
     public static List<Product> filterByAccountId(List<Product> list, int accountId, int page, int pageSize){
-/*        List<Product> temp = new ArrayList<>();
-        for(Product value : list){
-            if (value.id == accountId){
-                temp.add(value);
-            }
-        }*/
         Predicate<Product> pred= (tmp -> (tmp.accountId == accountId));
         return paginate(list, page, pageSize, pred);
     }
     public static List<Product> filterByName(List<Product> list, String search, int page, int pageSize){
-/*        List<Product> temp = new ArrayList<>();
-        for(Product value : list){
-            if (value.name == search){
-                temp.add(value);
-            }
-        }*/
         Predicate<Product> pred = (tmp -> (tmp.name.toLowerCase().contains(search.toLowerCase())));
         return paginate(list, page, pageSize, pred);
     }
