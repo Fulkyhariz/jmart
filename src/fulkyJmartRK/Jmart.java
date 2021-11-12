@@ -47,7 +47,7 @@ public class Jmart
         JsonReader reader = new JsonReader(new FileReader(filepath));
         reader.beginArray();
         while(reader.hasNext()){
-        temp.add(gson.fromJson(reader, Product.class));
+            temp.add(gson.fromJson(reader, Product.class));
         }
         return temp;
     }
@@ -82,26 +82,11 @@ public class Jmart
         return paginate(list, page, pageSize, pred);
     }
     private static List<Product> paginate(List<Product> list, int page, int pageSize, Predicate<Product> pred){
-        List<Product> temp = new ArrayList<>();
-        int counter = 0;
-        List<Product> paginated = new ArrayList<>();
-        for(Product value : list){
-            if(pred.predicate(value)){
-                temp.add(value);
-            }
+        if(pageSize < 0 || page < 0) {
+            throw new IllegalArgumentException("Invalid page and/or page size is entered. Page = " + page + " and Page size = " + pageSize + ".");
+        }else {
+            List<Product> paginated = (list.stream().filter(tmp -> pred.predicate(tmp)).skip(page * pageSize).limit(pageSize).collect(Collectors.toList()));
+            return(paginated);
         }
-        for (int i = 0; i < temp.size() ; i++){
-            if( (i%pageSize) == 0){
-                counter += 1;
-                if (counter == page){
-                    counter = pageSize * page;
-                    for (int j = 0 ; j < pageSize ; j++){
-                        paginated.add(temp.get(counter));
-                        counter += 1;
-                    }
-                }
-            }
-        }
-        return paginated;
     }
 }
