@@ -41,7 +41,7 @@ public class Jmart
             t.printStackTrace();
         }*/
         try{
-            String filepath = "C:/Users/fulky/Documents/Akademik/5th Term/OOP/Prak/Jmart/jmart.account.json";
+            String filepath = "C:/Users/fulky/Documents/Akademik/5th Term/OOP/Prak/Jmart/jmart/account.json";
             JsonTable<Account> tableAccount = new JsonTable<>(Account.class, filepath);
             tableAccount.add(new Account("name", "email", "password", 200));
             tableAccount.writeJson();

@@ -6,7 +6,7 @@ import java.io.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Collection;
+import java.util.Collections;
 import java.util.Vector;
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
@@ -16,11 +16,28 @@ public class JsonTable <T> extends Vector<T> {
     private static final Gson gson = new Gson();
 
     public JsonTable(Class<T> clazz, String filepath) throws IOException{
-        List<T> obj = new ArrayList<>();
         this.filepath = filepath;
-        obj.add(readJson(clazz, filepath));
+        try
+        {
+            Class<T[]> array = (Class<T[]>) Array.newInstance(clazz, 0).getClass();
+            T[] loaded = readJson(array, filepath);
+            if(loaded != null)
+            {
+                Collections.addAll(this, loaded);
+            }
+        }
+        catch (FileNotFoundException e)
+        {
+            File f = new File(filepath);
+            File f1 =  f.getParentFile();
+            if(f1 != null)
+            {
+                f1.mkdirs();
+            }
+            f.createNewFile();
+        }
     }
-    public static <T> T readJson (Class<T> clazz, String filepath) throws FileNotFoundException{
+    public static <T> T readJson (Class<T> clazz, String filepath) throws FileNotFoundException, IOException{
         JsonReader reader = new JsonReader(new FileReader(filepath));
         return gson.fromJson(reader, clazz);
     }
