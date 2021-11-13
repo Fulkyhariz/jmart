@@ -15,7 +15,7 @@ public class JsonTable <T> extends Vector<T> {
     public final String filepath;
     private static final Gson gson = new Gson();
 
-    JsonTable(Class<T> clazz, String filepath) throws IOException{
+    public JsonTable(Class<T> clazz, String filepath) throws IOException{
         List<T> obj = new ArrayList<>();
         this.filepath = filepath;
         obj.add(readJson(clazz, filepath));
@@ -25,7 +25,7 @@ public class JsonTable <T> extends Vector<T> {
         return gson.fromJson(reader, clazz);
     }
     public void writeJson()throws IOException{
-        writeJson(gson, filepath);
+        writeJson(this, filepath);
     }
     public static void writeJson(Object object, String filepath) throws IOException{
         FileWriter file = new FileWriter(filepath);
