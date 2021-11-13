@@ -33,11 +33,22 @@ public class Jmart
         System.out.println("payment id:" + new Payment(-1, -1, -1, null).id);
         System.out.println("payment id:" + new Payment(-1, -1, -1, null).id);*/
 
-        try{
+/*        try{
             List<Product> list = read("C:/Users/fulky/Documents/Akademik/5th Term/OOP/Prak/[Modul 6] Case Study - Resource-20211106/randomProductList.json");
             List<Product> filtered = filterByName(list, "gtx", 1, 4);
             filtered.forEach(product -> System.out.println(product.name));
         }catch (Throwable t){
+            t.printStackTrace();
+        }*/
+        try{
+            String filepath = "C:/Users/fulky/Documents/Akademik/5th Term/OOP/Prak/Jmart/jmart.account.json";
+            JsonTable<Account> tableAccount = new JsonTable<>(Account.class, filepath);
+            tableAccount.add(new Account("name", "email", "password", 200));
+            tableAccount.writeJson();
+
+            tableAccount = new JsonTable<>(Account.class, filepath);
+            tableAccount.forEach(account -> System.out.println(account.toString()));
+        }catch(Throwable t){
             t.printStackTrace();
         }
     }
