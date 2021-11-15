@@ -6,19 +6,14 @@ import java.util.function.Function;
 public class ObjectPoolThread <T> extends Thread {
     private boolean exitSignal;
     private Vector<T> objectPool = new Vector<T>();
-    private Function<T, Boolean> routine = new Function<T, Boolean>() {
-        @Override
-        public Boolean apply(T t) {
-            return false;
-        }
-    };
+    private Function<T, Boolean> routine;
 
     public ObjectPoolThread(String name, Function<T, Boolean> routine){
         super(name);
-        //routine.apply();
+        this.routine = routine;
     }
     public ObjectPoolThread(Function<T, Boolean> routine){
-
+        this.routine = routine;
     }
     public synchronized void add(T object){
         this.objectPool.add(object);
