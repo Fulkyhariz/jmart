@@ -322,4 +322,13 @@ public class Algorithm {
         }
         return temp;
     }
+    public static <T> List<T> paginate(T[] array, int page, int pageSize, Predicate<T> pred){
+        return null;
+    }
+    public static <T> List<T> paginate(Iterable<T> iterable, int page, int pageSize, Predicate<T> pred){
+        return null;
+    }
+    public static <T> List<T> paginate(Iterator<T> iterable, int page, int pageSize, Predicate<T> pred){
+        return null;
+    }
 }

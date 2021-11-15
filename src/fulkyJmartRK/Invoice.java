@@ -10,27 +10,26 @@ public abstract class Invoice extends Serializable
     }
     public enum Status{
         WAITING_CONFIRMATION, CANCELLED, ON_PROGRESS, ON_DELIVERY, COMPLAINT,
-        FINISHED, FAILED
+        FINISHED, FAILED, DELIVERED
     }
     public class Record{
         public Status status;
         public Date date;
         public String message;
     }
-    public final Date date;
+    public final Date date = new Date();
     public int buyerId;
     public int productId;
-    public int complaintId;
-    public Rating rating;
-    public Status status;
-    public ArrayList<Record> history = new ArrayList<Record>();
+    public int complaintId = -1;
+    public Rating rating = Rating.NONE;
+/*  public Status status;
+    public ArrayList<Record> history = new ArrayList<Record>();*/
     
     protected Invoice(int buyerId,int productId){
         this.buyerId = buyerId;
         this.productId = productId;
-        this.date = new Date();
         this.rating = Rating.NONE;
-        this.status = Status.WAITING_CONFIRMATION;
+        /*this.status = Status.WAITING_CONFIRMATION;*/
     }
-    public abstract double getTotalPay();
+    public abstract double getTotalPay(Product product);
 }
