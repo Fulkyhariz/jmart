@@ -25,10 +25,9 @@ public class ObjectPoolThread <T> extends Thread {
     public void run(){
         while(!exitSignal){
             for(T t : objectPool) {
-                ObjectPoolThread<T> thread = new ObjectPoolThread<T>(routine);
                 routine.apply(t);
                 if(exitSignal) {
-                    thread.exit();
+                    this.exit();
                 }
             }
         }
