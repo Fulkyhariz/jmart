@@ -1,4 +1,6 @@
 package com.fulkyJmartRK;
+import com.fulkyJmartRK.dbjson.Serializable;
+
 import java.util.Date;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;

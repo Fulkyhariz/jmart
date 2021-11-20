@@ -1,7 +1,7 @@
 package com.fulkyJmartRK;
+import com.fulkyJmartRK.dbjson.Serializable;
+
 import java.util.Date;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 
 public abstract class Invoice extends Serializable
 {

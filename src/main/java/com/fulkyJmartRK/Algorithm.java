@@ -1,6 +1,7 @@
 package com.fulkyJmartRK;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Algorithm {
     private Algorithm(){}
@@ -323,12 +324,24 @@ public class Algorithm {
         return temp;
     }
     public static <T> List<T> paginate(T[] array, int page, int pageSize, Predicate<T> pred){
-        return null;
+        List<T> list = Arrays.asList(array);
+        if(pageSize < 0 || page < 0) {
+            throw new IllegalArgumentException("Invalid page and/or page size is entered. Page = " + page + " and Page size = " + pageSize + ".");
+        }else {
+            List<T> paginated = (list.stream().filter(tmp -> pred.predicate(tmp)).skip(page * pageSize).limit(pageSize).collect(Collectors.toList()));
+            return(paginated);
+        }
     }
     public static <T> List<T> paginate(Iterable<T> iterable, int page, int pageSize, Predicate<T> pred){
-        return null;
+        List<T> list = new ArrayList<>();
+        iterable.forEach(list::add);
+        if(pageSize < 0 || page < 0) page = 0; pageSize = 0;;
+        return list.stream().filter(tmp -> pred.predicate(tmp)).skip(page * pageSize).limit(pageSize).collect(Collectors.toList());
     }
-    public static <T> List<T> paginate(Iterator<T> iterable, int page, int pageSize, Predicate<T> pred){
-        return null;
+    public static <T> List<T> paginate(Iterator<T> iterator, int page, int pageSize, Predicate<T> pred){
+        List<T> list = new ArrayList<>();
+        iterator.forEachRemaining(list::add);
+        if(pageSize < 0 || page < 0) page = 0; pageSize = 0;
+        return list.stream().filter(tmp -> pred.predicate(tmp)).skip(page * pageSize).limit(pageSize).collect(Collectors.toList());
     }
 }

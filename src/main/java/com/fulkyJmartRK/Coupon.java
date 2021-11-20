@@ -1,5 +1,7 @@
 package com.fulkyJmartRK;
 
+import com.fulkyJmartRK.dbjson.Serializable;
+
 public class Coupon extends Serializable
 {
     public enum Type {

@@ -1,5 +1,7 @@
 package com.fulkyJmartRK;
 
+import com.fulkyJmartRK.dbjson.Serializable;
+
 /**
  * Write a description of class Product here.
  *

@@ -1,4 +1,6 @@
 package com.fulkyJmartRK;
+import com.fulkyJmartRK.dbjson.Serializable;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -10,7 +12,7 @@ public class Account extends Serializable
     public String email;
     public String password;
     public double balance;
-    Store store;
+    public Store store;
     
 //    @Override
 //    public boolean read(String content){
