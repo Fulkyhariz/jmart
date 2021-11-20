@@ -1,8 +1,10 @@
 package com.fulkyJmartRK.controller;
 
+import com.fulkyJmartRK.Algorithm;
 import com.fulkyJmartRK.dbjson.JsonTable;
 import com.fulkyJmartRK.dbjson.Serializable;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -19,10 +21,7 @@ public interface BasicGetController <T extends Serializable> {
     public abstract JsonTable<T> getJsonTable();
 
     @GetMapping("/page")
-    public default List<T> getPage(int page, int pageSize){
-        for(T t : getJsonTable()){
-            return null;
-        }
-        return null;
+    default List<T> getPage(int page, int pageSize) {
+        return Algorithm.<T>paginate(getJsonTable(), page, pageSize, e -> true);
     }
 }

@@ -3,8 +3,12 @@ package com.fulkyJmartRK.controller;
 import com.fulkyJmartRK.ObjectPoolThread;
 import com.fulkyJmartRK.Payment;
 import com.fulkyJmartRK.dbjson.JsonTable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
+@RequestMapping("/payment")
 public class PaymentController implements BasicGetController<Payment> {
     public static  final long DELIVERD_LIMIT_MS = 0;
     public static  final long ON_DELIVERY_LIMIT_MS = 0;
@@ -28,7 +32,7 @@ public class PaymentController implements BasicGetController<Payment> {
     }
 
     public JsonTable<Payment> getJsonTable(){
-        return null;
+        return paymentTable;
     }
 
     boolean submit (@RequestParam int id, @RequestParam String receipt){

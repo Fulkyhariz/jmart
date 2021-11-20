@@ -63,7 +63,7 @@ public class AccountController implements BasicGetController<Account> {
     }
 
     @PostMapping("/{id}/topUp")
-    boolean topUp (int id, double balance){
+    boolean topUp (@RequestParam int id,@RequestParam double balance){
         for (Account temp : accountTable){
             if(temp.id == id){
                 temp.balance += balance;
@@ -73,8 +73,8 @@ public class AccountController implements BasicGetController<Account> {
         return false;
     }
 
-    @GetMapping
-    String index() { return "account page"; }
+/*    @GetMapping
+    String index() { return "account page"; }*/
 
     //@GetMapping("/{id}")
     //String getById(@PathVariable int id) { return "account id " + id + " not found!"; }
