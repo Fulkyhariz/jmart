@@ -5,8 +5,12 @@ import com.fulkyJmartRK.Store;
 import com.fulkyJmartRK.dbjson.JsonAutowired;
 import com.fulkyJmartRK.dbjson.JsonTable;
 import org.springframework.web.bind.annotation.*;
+
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.security.*;
 
 @RestController
 @RequestMapping("/account")
@@ -28,9 +32,22 @@ public class AccountController implements BasicGetController<Account> {
     Account login( @RequestParam String email, @RequestParam String password){
         Matcher matchEmail = REGEX_PATTERN_EMAIL.matcher(email);
         Matcher matchPassword = REGEX_PATTERN_PASSWORD.matcher(password);
+        String hashedPassword = null;
         if (matchEmail.find() && matchPassword.find()) {
             for (Account temp : accountTable) {
-                if (temp.email == email && temp.password == password) {
+                try{
+                    MessageDigest md = MessageDigest.getInstance("MD5");
+                    md.update(password.getBytes());
+                    byte[] bytes = md.digest();
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 0; i< bytes.length; i++){
+                        sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+                    }
+                    hashedPassword = sb.toString();
+                }catch (NoSuchAlgorithmException e){
+                    e.printStackTrace();
+                }
+                if (Objects.equals(temp.email, email) && Objects.equals(temp.password, hashedPassword)) {
                     return temp;
                 } else return null;
             }
@@ -46,8 +63,21 @@ public class AccountController implements BasicGetController<Account> {
     {
         Matcher matchEmail = REGEX_PATTERN_EMAIL.matcher(email);
         Matcher matchPassword = REGEX_PATTERN_PASSWORD.matcher(password);
+        String hashedPassword = null;
         if(!name.isBlank() && matchEmail.find() && matchPassword.find()){
-            return new Account(name, email, password, 0);
+            try{
+                MessageDigest md = MessageDigest.getInstance("MD5");
+                md.update(password.getBytes());
+                byte[] bytes = md.digest();
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i< bytes.length; i++){
+                    sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+                }
+                hashedPassword = sb.toString();
+            }catch (NoSuchAlgorithmException e){
+                e.printStackTrace();
+            }
+            return new Account(name, email, hashedPassword, 0);
         }
         return null;
     }
