@@ -68,7 +68,7 @@ public class PaymentController implements BasicGetController<Payment> {
     @PostMapping("/{id}/submit")
     public boolean submit(@RequestParam int id, @RequestParam String receipt) {
         Payment payment = new PaymentController().getById(id);
-        if(payment.history.get(payment.history.size() - 1).status == Invoice.Status.ON_PROGRESS && payment.shipment.receipt.isBlank() == false) {
+        if(payment.history.get(payment.history.size() - 1).status == Invoice.Status.ON_PROGRESS && !payment.shipment.receipt.isBlank()) {
             payment.shipment.receipt = receipt;
             Payment.Record record = new Payment.Record(Invoice.Status.ON_DELIVERY, "Pesan");
             payment.history.add(record);
