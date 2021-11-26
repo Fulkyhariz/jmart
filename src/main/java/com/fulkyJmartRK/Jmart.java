@@ -6,11 +6,15 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
+import com.fulkyJmartRK.dbjson.JsonDBEngine;
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 import java.util.stream.Collectors;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.util.Vector;
+import java.util.function.Function;
+
 
 /**
  * Write a description of class Jmart here.
@@ -32,7 +36,9 @@ public class Jmart
     public static long WAITING_CONF_LIMIT_MS = 3;*/
     public static void main(String[] args)
     {
+        JsonDBEngine.Run(Jmart.class);
         SpringApplication.run(Jmart.class, args);
+        Runtime.getRuntime().addShutdownHook(new Thread(JsonDBEngine::join));
 /*        try {
             JsonTable<Payment> table = new JsonTable<>(Payment.class, "C:/Users/fulky/Documents/Akademik/5th Term/OOP/Prak/Jmart/jmart/randomPaymentList.json");
             ObjectPoolThread<Payment> paymentPool = new ObjectPoolThread<Payment>("Thread-PP", Jmart::paymentTimekeeper);

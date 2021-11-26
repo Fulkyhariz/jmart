@@ -1,41 +1,79 @@
 package com.fulkyJmartRK.controller;
 
+import com.fulkyJmartRK.*;
 import com.fulkyJmartRK.ObjectPoolThread;
 import com.fulkyJmartRK.Payment;
-import com.fulkyJmartRK.dbjson.JsonTable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.fulkyJmartRK.dbjson.*;
+import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @RequestMapping("/payment")
 public class PaymentController implements BasicGetController<Payment> {
-    public static  final long DELIVERD_LIMIT_MS = 0;
-    public static  final long ON_DELIVERY_LIMIT_MS = 0;
-    public static  final long ON_PROGRESS_LIMIT_MS = 0;
-    public static  final long WAITING_CONF_LIMIT_MS = 0;
+    public static final long DELIVERED_LIMIT_MS = 3000;
+    public static final long ON_DELIVERY_LIMIT_MS = 3000;
+    public static final long ON_PROGRESS_LIMIT_MS = 3000;
+    public static final long WAITING_CONF_LIMIT_MS = 3000;
 
+    @JsonAutowired(filepath = "C:/Java/jmart/json/randomPaymentList.json", value = Payment.class)
     public static JsonTable<Payment> paymentTable;
+
     public static ObjectPoolThread<Payment> poolThread;
 
-    boolean accept (@RequestParam int id){
-        return false;
-    }
-
-    boolean cancel (@RequestParam int id){
-        return false;
-    }
-
-    Payment create (@RequestParam int buyerId, @RequestParam int productId,
-                    @RequestParam String shipmentAddress, @RequestParam byte shipmentPlan){
-        return null;
-    }
-
+    @Override
     public JsonTable<Payment> getJsonTable(){
         return paymentTable;
     }
 
-    boolean submit (@RequestParam int id, @RequestParam String receipt){
+    @PostMapping("/create")
+    public Payment create(@RequestParam int buyerId, @RequestParam int productId, @RequestParam int productCount, @RequestParam String shipmentAddress, @RequestParam byte shipmentPlan) {
+        Account account = new AccountController().getById(buyerId);
+        Product product = new ProductController().getById(productId);
+        Shipment shipment = new Shipment(shipmentAddress, 0, shipmentPlan, null);
+        Payment payment = new Payment(buyerId, productId, productCount, shipment);
+        double totalPay = payment.getTotalPay(product);
+        if(account.balance > totalPay) {
+            account.balance -= totalPay;
+            Payment.Record record = new Payment.Record(Invoice.Status.WAITING_CONFIRMATION, "Pesan");
+            payment.history.add(record);
+            paymentTable.add(payment);
+            poolThread.add(payment);
+            return payment;
+        }
+        return null;
+    }
+
+    @PostMapping("/{id}/accept")
+    public boolean accept(@RequestParam int id) {
+        Payment payment = new PaymentController().getById(id);
+        if(payment.history.get(payment.history.size() - 1).status == Invoice.Status.WAITING_CONFIRMATION) {
+            Payment.Record record = new Payment.Record(Invoice.Status.ON_PROGRESS, "Pesan");
+            payment.history.add(record);
+            return true;
+        }
+        return false;
+    }
+
+    @PostMapping("/{id}/cancel")
+    public boolean cancel(@RequestParam int id) {
+        Payment payment = new PaymentController().getById(id);
+        if(payment.history.get(payment.history.size() - 1).status == Invoice.Status.WAITING_CONFIRMATION) {
+            Payment.Record record = new Payment.Record(Invoice.Status.CANCELLED, "Pesan");
+            payment.history.add(record);
+            return true;
+        }
+        return false;
+    }
+
+    @PostMapping("/{id}/submit")
+    public boolean submit(@RequestParam int id, @RequestParam String receipt) {
+        Payment payment = new PaymentController().getById(id);
+        if(payment.history.get(payment.history.size() - 1).status == Invoice.Status.ON_PROGRESS && payment.shipment.receipt.isBlank() == false) {
+            payment.shipment.receipt = receipt;
+            Payment.Record record = new Payment.Record(Invoice.Status.ON_DELIVERY, "Pesan");
+            payment.history.add(record);
+            return true;
+        }
         return false;
     }
 

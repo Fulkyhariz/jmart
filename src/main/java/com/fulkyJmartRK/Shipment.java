@@ -19,12 +19,15 @@ public class Shipment{
     public static final Plan SAME_DAY = new Plan((byte)(1<<4));
     public String address;
     public int Cost;
+    public int shipmentCost;
     public String receipt;
     byte plan;
 
-    public Shipment (String address,int shipmentCost,String receipt){
+    public Shipment(String address, int shipmentCost, byte plan, String receipt)
+    {
         this.address = address;
-        this.Cost = shipmentCost;
+        this.shipmentCost = shipmentCost;
+        this.plan = plan;
         this.receipt = receipt;
     }
     public String getEstimatedArrival(Date reference){
