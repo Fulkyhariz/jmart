@@ -15,8 +15,10 @@ import java.security.*;
 @RestController
 @RequestMapping("/account")
 public class AccountController implements BasicGetController<Account> {
-    public static final String REGEX_EMAIL = "^[a-zA-Z0-9&*_~]+([\\.]?[a-zA-Z0-9&*_~]?)*@[A-Za-z0-9]+([-]?[\\.]?[A-Za-z0-9]+)+(^\\.)$";
-    public static final String REGEX_PASSWORD = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$";
+    //public static final String REGEX_EMAIL = "^[a-zA-Z0-9&*_~]+([\\.]?[a-zA-Z0-9&*_~]?)*@[A-Za-z0-9]+([-]?[\\.]?[A-Za-z0-9]+)+(^\\.)$";
+    public static final String REGEX_EMAIL = "/*";
+    //public static final String REGEX_PASSWORD = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$";
+    public static final String REGEX_PASSWORD = "/*";
     public static final Pattern REGEX_PATTERN_EMAIL = Pattern.compile(REGEX_EMAIL);
     public static final Pattern REGEX_PATTERN_PASSWORD = Pattern.compile(REGEX_PASSWORD);
 
@@ -34,7 +36,6 @@ public class AccountController implements BasicGetController<Account> {
         Matcher matchPassword = REGEX_PATTERN_PASSWORD.matcher(password);
         String hashedPassword = null;
         if (matchEmail.find() && matchPassword.find()) {
-            for (Account temp : accountTable) {
                 try{
                     MessageDigest md = MessageDigest.getInstance("MD5");
                     md.update(password.getBytes());
@@ -47,9 +48,10 @@ public class AccountController implements BasicGetController<Account> {
                 }catch (NoSuchAlgorithmException e){
                     e.printStackTrace();
                 }
-                if (Objects.equals(temp.email, email) && Objects.equals(temp.password, hashedPassword)) {
+            for (Account temp : accountTable) {
+                if (temp.email.equals(email) && temp.password.equals(hashedPassword)) {
                     return temp;
-                } else return null;
+                }
             }
         }
         return null;
@@ -77,7 +79,9 @@ public class AccountController implements BasicGetController<Account> {
             }catch (NoSuchAlgorithmException e){
                 e.printStackTrace();
             }
-            return new Account(name, email, hashedPassword, 0);
+            Account akun = new Account(name, email, hashedPassword, 0);
+            accountTable.add(akun);
+            return akun;
         }
         return null;
     }
@@ -86,7 +90,8 @@ public class AccountController implements BasicGetController<Account> {
     Store registerStore (@RequestParam int id,@RequestParam String name,@RequestParam String address,@RequestParam String phoneNumber){
         for (Account temp : accountTable){
             if(temp.id == id && (temp.store == null)){
-                return new Store(name, address, phoneNumber, 0);
+                temp.store = new Store(name, address, phoneNumber, 0);
+                return temp.store;
             }
         }
         return null;
@@ -96,15 +101,15 @@ public class AccountController implements BasicGetController<Account> {
     boolean topUp (@RequestParam int id,@RequestParam double balance){
         for (Account temp : accountTable){
             if(temp.id == id){
-                temp.balance += balance;
+                temp.balance = balance;
                 return true;
             }
         }
         return false;
     }
 
-/*    @GetMapping
-    String index() { return "account page"; }*/
+    @GetMapping
+    String index() { return "account page"; }
 
     //@GetMapping("/{id}")
     //String getById(@PathVariable int id) { return "account id " + id + " not found!"; }
