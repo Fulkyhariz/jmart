@@ -1,13 +1,15 @@
 package com.fulkyJmartRK.controller;
 
-import com.fulkyJmartRK.Account;
-import com.fulkyJmartRK.Product;
-import com.fulkyJmartRK.ProductCategory;
+import com.fulkyJmartRK.*;
 import com.fulkyJmartRK.dbjson.JsonAutowired;
 import com.fulkyJmartRK.dbjson.JsonTable;
 import org.springframework.web.bind.annotation.*;
-import com.fulkyJmartRK.Algorithm;
+
+import java.util.ArrayList;
 import java.util.List;
+
+import static com.fulkyJmartRK.Algorithm.min;
+import static com.fulkyJmartRK.Algorithm.paginate;
 
 @RestController
 @RequestMapping("/product")
@@ -33,6 +35,13 @@ public class ProductController implements BasicGetController<Product> {
         }else return null;
     }
 
+    @GetMapping("/get")
+    List<Product> getProductList (@RequestParam(defaultValue = "0") int page,
+                                     @RequestParam(defaultValue = "10") int pageSize){
+        Predicate<Product> predicateId = productTable -> true;
+        return paginate(productTable, page, pageSize, predicateId);
+    }
+
     @Override
     public JsonTable<Product> getJsonTable() {
         return productTable;
@@ -40,19 +49,33 @@ public class ProductController implements BasicGetController<Product> {
 
     @GetMapping("/{id}/store")
     List<Product> getProductByStore (@RequestParam int id,
-                                     @RequestParam int page,
-                                     @RequestParam int pageSize){
-        return null;
+                                     @RequestParam(defaultValue = "0") int page,
+                                     @RequestParam(defaultValue = "10") int pageSize){
+        Predicate<Product> predicateId = productTable -> productTable.accountId == id;
+        System.out.println("this line works");
+
+        System.out.println(predicateId);
+        return paginate(productTable, page, pageSize, predicateId);
     }
 
     @GetMapping("/getFiltered")
-    List<Product> getProductFiltered (@RequestParam int page,
-                                      @RequestParam int pageSize,
+    List<Product> getProductFiltered (@RequestParam(defaultValue = "0") int page,
+                                      @RequestParam(defaultValue = "10") int pageSize,
                                       @RequestParam int id,
                                       @RequestParam String search,
-                                      @RequestParam int minPrice,
-                                      @RequestParam int maxPrice,
+                                      @RequestParam double minPrice,
+                                      @RequestParam double maxPrice,
+                                      @RequestParam Boolean isUsed,
                                       @RequestParam ProductCategory category){
-        return null;
+        List<Product> temp;
+        String searchLowercase = search.toLowerCase();
+        Predicate<Product> predicateSearch = product -> (product.name.toLowerCase().contains(searchLowercase) && (product.conditionUsed == isUsed)
+            && (product.price >= minPrice) && (product.price <= maxPrice) /*&& (product.accountId == id)*/ && (product.category.equals(category)));
+        System.out.println(search);
+        temp = Algorithm.<Product>paginate(productTable, page, pageSize, predicateSearch);
+        for (Product temp2 : temp){
+            System.out.println(temp2.name);
+        }
+        return temp;
     }
 }

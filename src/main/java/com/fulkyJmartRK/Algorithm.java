@@ -325,6 +325,7 @@ public class Algorithm {
     }
     public static <T> List<T> paginate(T[] array, int page, int pageSize, Predicate<T> pred){
         List<T> list = Arrays.asList(array);
+        //System.out.println(page);
         if(pageSize < 0 || page < 0) {
             throw new IllegalArgumentException("Invalid page and/or page size is entered. Page = " + page + " and Page size = " + pageSize + ".");
         }else {
@@ -335,13 +336,15 @@ public class Algorithm {
     public static <T> List<T> paginate(Iterable<T> iterable, int page, int pageSize, Predicate<T> pred){
         List<T> list = new ArrayList<>();
         iterable.forEach(list::add);
-        if(pageSize < 0 || page < 0) page = 0; pageSize = 0;;
-        return list.stream().filter(tmp -> pred.predicate(tmp)).skip(page * pageSize).limit(pageSize).collect(Collectors.toList());
+        if(pageSize < 0 || page < 0) page = 0;
+        System.out.println(page);
+        return list.stream().filter(pred::predicate).skip(page * pageSize).limit(pageSize).collect(Collectors.toList());
     }
     public static <T> List<T> paginate(Iterator<T> iterator, int page, int pageSize, Predicate<T> pred){
         List<T> list = new ArrayList<>();
         iterator.forEachRemaining(list::add);
-        if(pageSize < 0 || page < 0) page = 0; pageSize = 0;
-        return list.stream().filter(tmp -> pred.predicate(tmp)).skip(page * pageSize).limit(pageSize).collect(Collectors.toList());
+        if(pageSize < 0 || page < 0) page = 0;
+        //System.out.println(page);
+        return list.stream().filter(pred::predicate).skip(page * pageSize).limit(pageSize).collect(Collectors.toList());
     }
 }
