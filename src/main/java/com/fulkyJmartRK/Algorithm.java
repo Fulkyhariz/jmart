@@ -337,7 +337,6 @@ public class Algorithm {
         List<T> list = new ArrayList<>();
         iterable.forEach(list::add);
         if(pageSize < 0 || page < 0) page = 0;
-        System.out.println(page);
         return list.stream().filter(pred::predicate).skip(page * pageSize).limit(pageSize).collect(Collectors.toList());
     }
     public static <T> List<T> paginate(Iterator<T> iterator, int page, int pageSize, Predicate<T> pred){

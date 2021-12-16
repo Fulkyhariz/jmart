@@ -35,12 +35,6 @@ public class ProductController implements BasicGetController<Product> {
         }else return null;
     }
 
-    @GetMapping("/get")
-    List<Product> getProductList (@RequestParam(defaultValue = "0") int page,
-                                     @RequestParam(defaultValue = "10") int pageSize){
-        Predicate<Product> predicateId = productTable -> true;
-        return paginate(productTable, page, pageSize, predicateId);
-    }
 
     @Override
     public JsonTable<Product> getJsonTable() {
