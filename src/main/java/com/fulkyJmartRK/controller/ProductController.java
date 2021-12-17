@@ -41,35 +41,33 @@ public class ProductController implements BasicGetController<Product> {
         return productTable;
     }
 
-    @GetMapping("/{id}/store")
-    List<Product> getProductByStore (@RequestParam int id,
+    @GetMapping("/{id}/getStore")
+    List<Product> getProductByStore (@RequestParam int accountId,
+                                     @RequestParam int id,
                                      @RequestParam(defaultValue = "0") int page,
                                      @RequestParam(defaultValue = "10") int pageSize){
-        Predicate<Product> predicateId = productTable -> productTable.accountId == id;
-        System.out.println("this line works");
-
-        System.out.println(predicateId);
+        Predicate<Product> predicateId = productTable -> productTable.accountId == accountId && productTable.id == id;
         return paginate(productTable, page, pageSize, predicateId);
     }
 
     @GetMapping("/getFiltered")
     List<Product> getProductFiltered (@RequestParam(defaultValue = "0") int page,
                                       @RequestParam(defaultValue = "10") int pageSize,
-                                      @RequestParam int id,
-                                      @RequestParam String search,
+                                      @RequestParam(defaultValue = "1")  int id,
+                                      @RequestParam(defaultValue = "") String search,
                                       @RequestParam double minPrice,
                                       @RequestParam double maxPrice,
                                       @RequestParam Boolean isUsed,
+                                      @RequestParam Boolean isNew,
                                       @RequestParam ProductCategory category){
         List<Product> temp;
         String searchLowercase = search.toLowerCase();
-        Predicate<Product> predicateSearch = product -> (product.name.toLowerCase().contains(searchLowercase) && (product.conditionUsed == isUsed)
-            && (product.price >= minPrice) && (product.price <= maxPrice) /*&& (product.accountId == id)*/ && (product.category.equals(category)));
-        System.out.println(search);
+        Predicate<Product> predicateSearch = product -> (
+                (product.name.toLowerCase().contains(searchLowercase) || product.name.equalsIgnoreCase("")) &&
+                ((product.conditionUsed == isUsed) || (isUsed == isNew))
+            && (product.price >= minPrice) && (product.price <= maxPrice) && /*(product.accountId == id) &&*/
+                ((product.category.equals(category) || (category == ProductCategory.NOT_CATEGORY))));
         temp = Algorithm.<Product>paginate(productTable, page, pageSize, predicateSearch);
-        for (Product temp2 : temp){
-            System.out.println(temp2.name);
-        }
         return temp;
     }
 }

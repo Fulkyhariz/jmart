@@ -29,7 +29,7 @@ public class Payment extends Invoice
     }
     @Override
     public double getTotalPay(Product product){
-        return 0.0;
+        return product.price * productCount;
     }
 
 
