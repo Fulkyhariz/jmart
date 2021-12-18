@@ -17,9 +17,8 @@ import java.util.function.Function;
 
 
 /**
- * Write a description of class Jmart here.
- *
- * @author (Fulky Hariz Z)
+ * class untuk mejalankan springboot
+ * @author fulky hariz
  * @version (11/9/21)
  */
 @SpringBootApplication

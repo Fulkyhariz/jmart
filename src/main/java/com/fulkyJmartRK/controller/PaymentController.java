@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Calendar;
 import java.util.Date;
 
-
+/**
+ * class yang digunakan untuk mengatur payment dari aplikasi
+ * @author fulky hariz
+ */
 @RestController
 @RequestMapping("/payment")
 public class PaymentController implements BasicGetController<Payment> {
@@ -28,6 +31,16 @@ public class PaymentController implements BasicGetController<Payment> {
         return paymentTable;
     }
 
+    /**
+     * merupakan method untuk membuat suatu payment baru, payment baru ditambahkan
+     * ketika user membeli suatu produk
+     * @param buyerId id dari akun pembeli
+     * @param productId id dari produk
+     * @param productCount jumlah produk yang dibeli
+     * @param shipmentAddress alamat pengiriman
+     * @param shipmentPlan jenis pengiriman
+     * @return class payment berisi payment yang telah dibuat
+     */
     @PostMapping("/create")
     public Payment create(@RequestParam int buyerId, @RequestParam int productId, @RequestParam int productCount, @RequestParam String shipmentAddress, @RequestParam byte shipmentPlan) {
         Account account = new AccountController().getById(buyerId);
@@ -47,6 +60,11 @@ public class PaymentController implements BasicGetController<Payment> {
         return null;
     }
 
+    /**
+     * method yang digunakan untuk menandakan bahwa payment telah diterima
+     * @param id payment id
+     * @return boolean menandakan payment diterima atau tidak
+     */
     @PostMapping("/{id}/accept")
     public boolean accept(@RequestParam int id) {
         Payment payment = new PaymentController().getById(id);
@@ -58,6 +76,11 @@ public class PaymentController implements BasicGetController<Payment> {
         return false;
     }
 
+    /**
+     * method yang digunakan untuk menandakan bahwa payment dibatalkan
+     * @param id payment id
+     * @return boolean menandakan payment dibatalkan atau tidak
+     */
     @PostMapping("/{id}/cancel")
     public boolean cancel(@RequestParam int id) {
         Payment payment = new PaymentController().getById(id);
@@ -69,6 +92,11 @@ public class PaymentController implements BasicGetController<Payment> {
         return false;
     }
 
+    /**
+     * method yang digunakan untuk menandakan bahwa payment telah disubmit oleh pembeli
+     * @param id payment id
+     * @return boolean menandakan submit payment berhasil atau tidak
+     */
     @PostMapping("/{id}/submit")
     public boolean submit(@RequestParam int id, @RequestParam String receipt) {
         Payment payment = new PaymentController().getById(id);
@@ -81,6 +109,12 @@ public class PaymentController implements BasicGetController<Payment> {
         return false;
     }
 
+    /**
+     * method yang digunakan untuk mencatat waktu perubahan status pesanan
+     * berdasarkan instance variable time limit
+     * @param payment class payment berisi payment yang telah dilakukan
+     * @return boolean menandakan update status berhasil atau tidak
+     */
     private static boolean timekeeper (@RequestParam Payment payment){
         Date timeNow = Calendar.getInstance().getTime();
         if (payment.history.size() != 0) {

@@ -1,10 +1,8 @@
 package com.fulkyJmartRK;
 
 /**
- * Enumeration class ProductCategory - write a description of the enum class here
- *
- * @author (your name here)
- * @version (version number or date here)
+ * ENUM yang digunakan untuk menyimpan kategori apa saja yang ada pada produk
+ * @author fulky hariz
  */
 public enum ProductCategory
 {

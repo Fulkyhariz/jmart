@@ -11,12 +11,29 @@ import java.util.List;
 import static com.fulkyJmartRK.Algorithm.min;
 import static com.fulkyJmartRK.Algorithm.paginate;
 
+/**
+ * class yang mengatur get dan post terhadap produk
+ * @author fulky hariz
+ */
 @RestController
 @RequestMapping("/product")
 public class ProductController implements BasicGetController<Product> {
     @JsonAutowired(value = Product.class, filepath = "C:/Users/fulky/Documents/Akademik/5th Term/OOP/Prak/randomProductList.json")
     public static JsonTable<Product> productTable;
 
+    /**
+     * method yang digunakann untuk membuat suatu produk baru, user hanya dapat
+     * membuat produk baru jika telah memiliki store
+     * @param accountId id dari akun pemilik store
+     * @param name nama produk
+     * @param weight berat produk
+     * @param conditionUsed apakah produk baru/bekas
+     * @param price harga produk
+     * @param discount diskon produk
+     * @param category kategori produk
+     * @param shipmentPlans jenis pengiriman yang tersedia untuk produk
+     * @return object produk yang berhasil ditambahkan
+     */
     @PostMapping("/create")
     Product create (@RequestParam int accountId,
                     @RequestParam String name,
@@ -41,6 +58,14 @@ public class ProductController implements BasicGetController<Product> {
         return productTable;
     }
 
+    /**
+     * method yang digunakan untuk mendapatkan produk berdasarkan toko tertentu
+     * @param accountId id dari user pemilik toko tertentu
+     * @param id id dari produk
+     * @param page halaman paginasi
+     * @param pageSize jumlah data per halaman
+     * @return list berisi produk dari toko tertentu yang telah dipaginasi
+     */
     @GetMapping("/{id}/getStore")
     List<Product> getProductByStore (@RequestParam int accountId,
                                      @RequestParam int id,
@@ -50,6 +75,19 @@ public class ProductController implements BasicGetController<Product> {
         return paginate(productTable, page, pageSize, predicateId);
     }
 
+    /**
+     * method yang digunakan untuk melakukan filtering terhadap data produk yang ditampilkan
+     * @param page halaman produk
+     * @param pageSize jumlah list produk per halaman
+     * @param id id dari pemilik akun
+     * @param search nama produk yang ingin ditampilkan
+     * @param minPrice harga minimal produk
+     * @param maxPrice harga maksimal produk
+     * @param isUsed menandakan produk bekas atau tidak
+     * @param isNew menandakan produk baru atau tidak
+     * @param category kateogri dari produk
+     * @return list produk yang sesuai kriteria filter dan telah dipaginasi
+     */
     @GetMapping("/getFiltered")
     List<Product> getProductFiltered (@RequestParam(defaultValue = "0") int page,
                                       @RequestParam(defaultValue = "10") int pageSize,

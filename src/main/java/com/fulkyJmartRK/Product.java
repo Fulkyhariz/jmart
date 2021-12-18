@@ -3,10 +3,8 @@ package com.fulkyJmartRK;
 import com.fulkyJmartRK.dbjson.Serializable;
 
 /**
- * Write a description of class Product here.
- *
- * @author (your name)
- * @version (a version number or a date)
+ * class yang akan menjadi object untuk menyimpan product
+ * @author fulky hariz
  */
 public class Product extends Serializable
 {

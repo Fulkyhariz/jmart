@@ -3,6 +3,10 @@ package com.fulkyJmartRK;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * class yang digunakan untuk menyimpan algoritma yang akan digunakan pada backend
+ * @author fulky hariz
+ */
 public class Algorithm {
     private Algorithm(){}
     public static <T> List<T> collect(T[]array, T value){
@@ -323,6 +327,17 @@ public class Algorithm {
         }
         return temp;
     }
+
+    /**
+     * alogirtma untuk melakukan paginasi terhadap sebuah array
+     * dengan menggunakan generic T
+     * @param array array dengan object T
+     * @param page halaman
+     * @param pageSize jumlah item per halaman
+     * @param pred predicate untuk filter
+     * @param <T> generic object
+     * @return list yang sudah dipaginasi
+     */
     public static <T> List<T> paginate(T[] array, int page, int pageSize, Predicate<T> pred){
         List<T> list = Arrays.asList(array);
         //System.out.println(page);
@@ -333,12 +348,34 @@ public class Algorithm {
             return(paginated);
         }
     }
+
+    /**
+     * alogirtma untuk melakukan paginasi terhadap sebuah iterable
+     * dengan menggunakan generic T
+     * @param iterable iterable object
+     * @param page halaman
+     * @param pageSize jumlah item per halaman
+     * @param pred predicate untuk filter
+     * @param <T> generic object
+     * @return list yang sudah dipaginasi
+     */
     public static <T> List<T> paginate(Iterable<T> iterable, int page, int pageSize, Predicate<T> pred){
         List<T> list = new ArrayList<>();
         iterable.forEach(list::add);
         if(pageSize < 0 || page < 0) page = 0;
         return list.stream().filter(pred::predicate).skip(page * pageSize).limit(pageSize).collect(Collectors.toList());
     }
+
+    /**
+     * alogirtma untuk melakukan paginasi terhadap sebuah iterator
+     * dengan menggunakan generic T
+     * @param iterator iterator object
+     * @param page halaman
+     * @param pageSize jumlah item per halaman
+     * @param pred predicate untuk filter
+     * @param <T> generic object
+     * @return list yang sudah dipaginasi
+     */
     public static <T> List<T> paginate(Iterator<T> iterator, int page, int pageSize, Predicate<T> pred){
         List<T> list = new ArrayList<>();
         iterator.forEachRemaining(list::add);
